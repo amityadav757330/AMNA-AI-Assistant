@@ -1,21 +1,25 @@
 <p align="center">
-  <img src="images/logo.png" alt="AMNA Logo" width="220">
+  <img src="images/banner.png" alt="AMNA Banner" width="100%">
+</p>
+
+<p align="center">
+  <img src="images/logo.png" alt="AMNA Logo" width="300">
 </p>
 
 <h1 align="center">🤖 AMNA AI Assistant</h1>
 
 <p align="center">
-  <b>Your Personal AI Voice Assistant</b>
+<b>Your Personal AI Voice Assistant</b>
 </p>
 
 <p align="center">
-  Built with Python • Ollama • Edge TTS • Speech Recognition
+Built with ❤️ using Python • Ollama • Edge TTS • Speech Recognition
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.12-blue?logo=python">
-  <img src="https://img.shields.io/badge/Ollama-AI-green">
-  <img src="https://img.shields.io/badge/Edge_TTS-Voice-orange">
+  <img src="https://img.shields.io/badge/Ollama-Local%20LLM-green">
+  <img src="https://img.shields.io/badge/Edge%20TTS-Natural%20Voice-orange">
   <img src="https://img.shields.io/badge/Platform-Windows-blueviolet">
   <img src="https://img.shields.io/badge/License-MIT-red">
 </p>
@@ -24,11 +28,11 @@
 
 # 🚀 About AMNA
 
-AMNA is a powerful personal AI voice assistant developed by **Amit Yadav**.
+AMNA is an AI-powered personal voice assistant developed by **Amit Yadav**.
 
-It understands voice commands, talks naturally, remembers conversations, searches the internet, answers questions using a local LLM (Ollama), and performs desktop automation.
+It understands voice commands, responds naturally, remembers conversations, searches the web, automates desktop tasks, and runs locally using Ollama.
 
-The goal of AMNA is to become a fully featured AI desktop assistant similar to Jarvis, ChatGPT Voice, Google Assistant, and Alexa while running locally.
+The vision of AMNA is to become a fully featured desktop AI assistant similar to Jarvis, ChatGPT Voice, Google Assistant, and Alexa while keeping user data private.
 
 ---
 
@@ -36,34 +40,31 @@ The goal of AMNA is to become a fully featured AI desktop assistant similar to J
 
 - 🎤 Voice Recognition
 - 🗣️ Natural AI Voice (Edge TTS)
-- 🤖 AI Chat using Ollama
+- 🤖 Local AI Chat (Ollama)
 - 🌐 Internet Search
 - 📚 Wikipedia Search
 - ☁️ Weather Information
 - 🧠 Long-Term Memory
 - 💻 Desktop Automation
-- 🔊 English + Hindi + Hinglish Support
-- ⚡ Fast Speech Recognition
-- 🛑 Stop Speaking Command
-- 🖥️ Open Applications
-- 📁 Open Files & Folders
-- 🌍 Web Search
+- 📂 Open Applications
+- 🌍 Open Websites
+- 🇮🇳 English + Hindi + Hinglish Support
+- ⏹️ Stop Speaking Anytime
+- ⚡ Fast Speech Response
 
 ---
 
-# 🛠️ Technologies Used
+# 🛠️ Tech Stack
 
 - Python 3.12
 - Ollama
 - Edge TTS
 - SpeechRecognition
+- Keyboard
 - Pygame
 - Requests
 - BeautifulSoup4
 - Wikipedia API
-- PyAutoGUI
-- Keyboard
-- PyCharm
 
 ---
 
@@ -87,36 +88,60 @@ AMNA/
 │   └── memory.json
 │
 ├── images/
-│   ├── logo.png
 │   ├── banner.png
+│   ├── logo.png
 │   ├── demo1.png
 │   └── demo2.png
 │
 ├── voice_mode.py
 ├── main.py
 ├── requirements.txt
-├── README.md
 ├── LICENSE
+├── README.md
 └── .gitignore
 ```
 
 ---
 
-# ⚙️ Installation
+# 🎙️ Example Commands
 
-## Clone the repository
+```text
+Hello AMNA
+
+Who created you?
+
+Open Chrome
+
+Open YouTube
+
+Search Python tutorials
+
+Remember my name
+
+What's today's weather?
+
+Who is Elon Musk?
+
+Stop speaking
+```
+
+---
+
+# 🚀 Installation
+
+## Clone Repository
 
 ```bash
 git clone https://github.com/amityadav757330/AMNA-AI-Assistant.git
 ```
 
-## Go to the project
+## Open Project
 
 ```bash
 cd AMNA-AI-Assistant
 ```
 
-## Install dependencies
+## Install Requirements
 
 ```bash
 pip install -r requirements.txt
@@ -124,11 +149,11 @@ pip install -r requirements.txt
 
 ## Install Ollama
 
-Download Ollama:
+Download:
 
 https://ollama.com/download
 
-Pull the AI model:
+Pull a model
 
 ```bash
 ollama pull qwen2.5:1.5b
@@ -140,40 +165,16 @@ or
 ollama pull llama3.2
 ```
 
-Start Ollama:
+Start Ollama
 
 ```bash
 ollama serve
 ```
 
-Run AMNA:
+Run AMNA
 
 ```bash
 python voice_mode.py
-```
-
----
-
-# 🎙️ Example Commands
-
-```
-Hello AMNA
-
-Who created you?
-
-Open Chrome
-
-Open YouTube
-
-Search Python tutorials
-
-What's today's weather?
-
-Remember my name
-
-Who is Elon Musk?
-
-Stop speaking
 ```
 
 ---
@@ -183,42 +184,69 @@ Stop speaking
 ## Logo
 
 <p align="center">
-<img src="images/logo.png" width="220">
+<img src="images/logo.png" width="260">
 </p>
 
-## Demo
+## Voice Assistant
 
 Coming Soon...
 
 ---
 
-# 🚀 Future Roadmap
+# 🎥 Demo
 
-- ✅ Continuous Conversation
-- ✅ Wake Word ("Hey AMNA")
-- ✅ Face Recognition
-- ✅ Camera Vision
-- ✅ Object Detection
-- ✅ Screen Reader (OCR)
-- ✅ Smart App Launcher
-- ✅ WhatsApp Automation
-- ✅ Email Automation
-- ✅ Calendar & Reminders
-- ✅ Music Control
-- ✅ AI Image Generation
-- ✅ GUI Dashboard
-- ✅ Mobile Companion App
+Coming Soon...
+
+A full demonstration GIF will be added after the Continuous Conversation feature is completed.
 
 ---
 
-# 💻 Requirements
+# 🗺️ Roadmap
 
-- Windows 10 / Windows 11
+## ✅ Completed
+
+- Voice Recognition
+- AI Chat
+- Local LLM
+- Memory
+- Desktop Automation
+- Internet Search
+- Wikipedia
+- Weather
+- Natural Voice
+
+## 🚧 In Progress
+
+- Continuous Conversation
+- Wake Word ("Hey AMNA")
+- Better Memory
+- Faster Responses
+
+## 🔮 Planned
+
+- Camera Vision
+- Face Recognition
+- Object Detection
+- OCR
+- PDF Reader
+- WhatsApp Automation
+- Email Automation
+- Calendar
+- Reminders
+- AI Image Generation
+- Desktop GUI
+- Mobile Companion App
+
+---
+
+# 💻 System Requirements
+
+- Windows 10 / 11
 - Python 3.12+
 - Ollama
-- Internet Connection (for some features)
 - Microphone
 - Speaker
+- Internet Connection (for online features)
 
 ---
 
@@ -226,8 +254,9 @@ Coming Soon...
 
 Contributions are welcome.
 
-1. Fork the repository
-2. Create your feature branch
+1. Fork this repository
+
+2. Create a feature branch
 
 ```bash
 git checkout -b feature-name
@@ -236,7 +265,7 @@ git checkout -b feature-name
 3. Commit your changes
 
 ```bash
-git commit -m "Add new feature"
+git commit -m "Added new feature"
 ```
 
 4. Push
@@ -245,7 +274,7 @@ git commit -m "Add new feature"
 git push origin feature-name
 ```
 
-5. Open a Pull Request
+5. Create a Pull Request
 
 ---
 
@@ -257,13 +286,13 @@ B.Tech Computer Science Engineering
 
 GL Bajaj Institute of Technology & Management
 
-Passionate about
+### Interests
 
 - Artificial Intelligence
-- Machine Learning
-- Python
+- Python Development
 - Automation
-- Software Development
+- Machine Learning
+- Software Engineering
 
 GitHub
 
@@ -281,7 +310,7 @@ See the LICENSE file for details.
 
 <p align="center">
 
-⭐ If you like this project, don't forget to Star this repository.
+⭐ If you like this project, don't forget to Star the repository.
 
 Made with ❤️ by Amit Yadav
 
