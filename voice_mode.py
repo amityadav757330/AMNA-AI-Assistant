@@ -2,34 +2,34 @@ import keyboard
 import threading
 import time
 
-from assistant.conversation import Conversation
+from assistant.engine import AssistantEngine
 from assistant.speak import stop
 
 
 running = True
 
-conversation = Conversation()
+engine = AssistantEngine()
 
 
-def start_conversation():
-    conversation.start()
+def start():
+
+    engine.start_conversation()
 
 
 def conversation_thread():
 
-    if conversation.active:
+    if engine.conversation.active:
         print("Conversation already running.")
         return
 
-    thread = threading.Thread(
-        target=start_conversation,
+    threading.Thread(
+        target=start,
         daemon=True
-    )
-
-    thread.start()
+    ).start()
 
 
 def stop_speaking():
+
     stop()
 
 
@@ -45,7 +45,7 @@ def exit_program():
 
 
 print("=" * 45)
-print("          AMNA Voice Assistant")
+print("          AMNA AI Assistant")
 print("=" * 45)
 print("F9  -> Start Conversation")
 print("F10 -> Stop Speaking")

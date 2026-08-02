@@ -20,6 +20,10 @@ class Conversation:
     def __init__(self):
         self.active = False
 
+    def wait_until_done_speaking(self):
+        while speaking():
+            time.sleep(0.05)
+
     def start(self):
 
         if self.active:
@@ -28,6 +32,7 @@ class Conversation:
         self.active = True
 
         speak("Hello Amit. I'm listening.")
+        self.wait_until_done_speaking()
 
         while self.active:
 
@@ -42,20 +47,20 @@ class Conversation:
 
             if user in EXIT_WORDS:
 
-                speak("Goodbye Amit.")
-
-                while speaking():
-                    time.sleep(0.05)
-
                 self.active = False
 
-                break
+                speak("Goodbye Amit.")
+                self.wait_until_done_speaking()
+
+                print("\nConversation Ended.")
+
+                return
+
+            print(f"You: {text}")
 
             response = reply(text)
 
+            print(f"AMNA: {response}")
+
             speak(response)
-
-            while speaking():
-                time.sleep(0.05)
-
-        print("\nConversation Ended.")
+            self.wait_until_done_speaking()

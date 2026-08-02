@@ -29,3 +29,15 @@ All notable changes to the AMNA AI Assistant project will be documented in this 
 - New `assistant/conversation.py` module
 - Cleaner project architecture
 - Improved thread handling
+
+---
+
+## v0.3 - Assistant Engine (Completed)
+
+### Added
+- Introduced Assistant Engine architecture
+- Added `assistant/engine.py`
+- Separated conversation management from `voice_mode.py`
+- Improved code organization
+- Fixed conversation exit bug
+- Better thread handling
