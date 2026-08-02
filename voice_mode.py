@@ -2,42 +2,24 @@ import keyboard
 import threading
 import time
 
-from assistant.speech import listen
-from assistant.brain import reply
-from assistant.speak import speak, stop
+from assistant.conversation import Conversation
+from assistant.speak import stop
 
 
 running = True
 
+conversation = Conversation()
+
 
 def start_conversation():
-
-    print("\n🎤 Listening...")
-
-    listen_start = time.time()
-
-    text = listen()
-
-    listen_end = time.time()
-
-    print(f"⏱ Listening : {listen_end-listen_start:.2f} sec")
-
-    if not text:
-        speak("I didn't hear anything.")
-        return
-
-    think_start = time.time()
-
-    response = reply(text)
-
-    think_end = time.time()
-
-    print(f"🧠 Thinking : {think_end-think_start:.2f} sec")
-
-    speak(response)
+    conversation.start()
 
 
 def conversation_thread():
+
+    if conversation.active:
+        print("Conversation already running.")
+        return
 
     thread = threading.Thread(
         target=start_conversation,
@@ -45,6 +27,10 @@ def conversation_thread():
     )
 
     thread.start()
+
+
+def stop_speaking():
+    stop()
 
 
 def exit_program():
@@ -61,13 +47,13 @@ def exit_program():
 print("=" * 45)
 print("          AMNA Voice Assistant")
 print("=" * 45)
-print("F9  -> Talk")
+print("F9  -> Start Conversation")
 print("F10 -> Stop Speaking")
 print("ESC -> Exit")
 print("=" * 45)
 
 keyboard.add_hotkey("f9", conversation_thread)
-keyboard.add_hotkey("f10", stop)
+keyboard.add_hotkey("f10", stop_speaking)
 keyboard.add_hotkey("esc", exit_program)
 
 while running:
