@@ -1,43 +1,186 @@
-# 📋 Changelog
+# Changelog
 
-All notable changes to the AMNA AI Assistant project will be documented in this file.
+All notable changes to this project will be documented in this file.
 
 ---
 
-## v0.1 - Foundation (Completed)
+# v0.5.0 (Current Release)
 
-### Added
-- Ollama integration
-- Voice recognition
+## Added
+
+- Modular Intent Architecture
+- Router System
+- Memory Intent
+- Search Intent
+- System Intent
+- Info Intent
+- AI Intent
+- Service Layer
+- Continuous Conversation
 - Edge TTS
-- English and Hindi conversation support
-- Push-to-talk using F9
-- Stop speaking using F10
-- Professional GitHub repository
-- README documentation
-- MIT License
+- Ollama Integration
 
 ---
 
-## v0.2 - Continuous Conversation (Completed)
+## Memory
 
-### Added
-- Continuous conversation mode
-- Press F9 once to start talking
-- Multiple back-and-forth conversations
-- Conversation ends with "Goodbye"
-- New `assistant/conversation.py` module
-- Cleaner project architecture
-- Improved thread handling
+Added
+
+- Remember
+- Recall
+- Forget
+- Persistent Memory
 
 ---
 
-## v0.3 - Assistant Engine (Completed)
+## Search
 
-### Added
-- Introduced Assistant Engine architecture
-- Added `assistant/engine.py`
-- Separated conversation management from `voice_mode.py`
-- Improved code organization
-- Fixed conversation exit bug
-- Better thread handling
+Added
+
+- Google Search
+- YouTube Search
+- Weather
+- News
+- Wikipedia Search
+
+---
+
+## Desktop Automation
+
+Added
+
+- Chrome
+- VS Code
+- PyCharm
+- Calculator
+- Notepad
+- Downloads
+- Documents
+- Desktop
+
+---
+
+## System Controls
+
+Added
+
+- Shutdown
+- Restart
+- Lock PC
+- Cancel Shutdown
+
+---
+
+## Voice
+
+Improved
+
+- Faster TTS
+- Better Speech Recognition
+- Continuous Conversation
+- Goodbye Handling
+- Stop Speaking
+
+---
+
+## Refactoring
+
+Major project refactor.
+
+Old Architecture
+
+```
+Conversation
+        ↓
+Brain
+```
+
+New Architecture
+
+```
+Conversation
+        ↓
+AI Service
+        ↓
+Brain
+        ↓
+Router
+        ↓
+Intents
+        ↓
+Services
+```
+
+---
+
+## Files Added
+
+```
+router.py
+memory_intents.py
+system_intents.py
+search_intents.py
+info_intents.py
+ai_intents.py
+
+memory_service.py
+ai_service.py
+```
+
+---
+
+## Files Refactored
+
+```
+brain.py
+conversation.py
+engine.py
+voice_mode.py
+```
+
+---
+
+## Status
+
+Checkpoint 4 Completed
+
+Architecture Stable
+
+Ready for Checkpoint 5
+
+---
+
+# Upcoming (v0.6)
+
+- Smart Memory
+- User Profile
+- Context Awareness
+- Automatic Learning
+
+---
+
+# Upcoming (v0.7)
+
+- Wake Word
+
+---
+
+# Upcoming (v0.8)
+
+- Vision
+- OCR
+
+---
+
+# Upcoming (v0.9)
+
+- GUI
+
+---
+
+# Upcoming (v1.0)
+
+- Production Release
+- Installer
+- Plugin System
+- Automation

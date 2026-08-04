@@ -1,106 +1,107 @@
 import json
-import os
+from pathlib import Path
 
-# Get the project root directory
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+# ===============================
+# Memory Directory
+# ===============================
 
-# Path to memory.json
-MEMORY_FILE = os.path.join(BASE_DIR, "data", "memory.json")
-print(MEMORY_FILE)
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-def load_memory():
-    """
-    Load memory from memory.json
-    """
+MEMORY_DIR = BASE_DIR / "data" / "memory"
 
-    if not os.path.exists(MEMORY_FILE):
-        with open(MEMORY_FILE, "w") as f:
-            json.dump({}, f, indent=4)
-
-    with open(MEMORY_FILE, "r") as f:
-        return json.load(f)
+PROFILE_FILE = MEMORY_DIR / "profile.json"
+PREFERENCES_FILE = MEMORY_DIR / "preferences.json"
+CONTEXT_FILE = MEMORY_DIR / "context.json"
+CONVERSATION_FILE = MEMORY_DIR / "conversation.json"
 
 
-def save_memory(memory):
-    """
-    Save memory to memory.json
-    """
+# ===============================
+# Generic Functions
+# ===============================
 
-    with open(MEMORY_FILE, "w") as f:
-        json.dump(memory, f, indent=4)
+def _load(file_path):
 
+    if not file_path.exists():
+        return {}
 
-def remember(key, value):
-    """
-    Remember something.
-    """
+    try:
 
-    memory = load_memory()
+        with open(file_path, "r", encoding="utf-8") as file:
+            return json.load(file)
 
-    memory[key.lower()] = value
+    except:
 
-    save_memory(memory)
-
-    return f"Okay Amit, I'll remember that your {key} is {value}."
+        return {}
 
 
-def recall(key):
-    """
-    Recall saved memory.
-    """
+def _save(file_path, data):
 
-    memory = load_memory()
+    with open(file_path, "w", encoding="utf-8") as file:
 
-    key = key.lower()
-
-    if key in memory:
-        return memory[key]
-
-    return None
+        json.dump(
+            data,
+            file,
+            indent=4,
+            ensure_ascii=False
+        )
 
 
-def forget(key):
-    """
-    Forget saved memory.
-    """
+# ===============================
+# Profile
+# ===============================
 
-    memory = load_memory()
+def get_profile():
 
-    key = key.lower()
-
-    if key in memory:
-        del memory[key]
-
-        save_memory(memory)
-
-        return f"I forgot your {key}."
-
-    return f"I don't remember any {key}."
+    return _load(PROFILE_FILE)
 
 
-def show_all_memory():
-    """
-    Show everything stored.
-    """
+def save_profile(profile):
 
-    memory = load_memory()
-
-    if len(memory) == 0:
-        return "I don't remember anything yet."
-
-    result = ""
-
-    for key, value in memory.items():
-        result += f"{key.title()} : {value}\n"
-
-    return result.strip()
+    _save(PROFILE_FILE, profile)
 
 
-def clear_memory():
-    """
-    Delete everything.
-    """
+# ===============================
+# Preferences
+# ===============================
 
-    save_memory({})
+def get_preferences():
 
-    return "All memory has been cleared."
+    return _load(PREFERENCES_FILE)
+
+
+def save_preferences(pref):
+
+    _save(PREFERENCES_FILE, pref)
+
+
+# ===============================
+# Context
+# ===============================
+
+def get_context():
+
+    return _load(CONTEXT_FILE)
+
+
+def save_context(context):
+
+    _save(CONTEXT_FILE, context)
+
+
+def clear_context():
+
+    _save(CONTEXT_FILE, {})
+
+
+# ===============================
+# Conversation Memory
+# ===============================
+
+def get_conversation():
+
+    return _load(CONVERSATION_FILE)
+
+
+def save_conversation(data):
+
+    _save(CONVERSATION_FILE, data)

@@ -13,8 +13,6 @@ def listen():
 
     with sr.Microphone() as source:
 
-        print("🎤 Listening...")
-
         try:
             audio = recognizer.listen(
                 source,
@@ -33,8 +31,6 @@ def listen():
             language="en-IN"
         )
 
-        print("You:", text)
-
         return text.lower()
 
     except sr.UnknownValueError:
@@ -50,8 +46,6 @@ def listen():
             audio,
             language="hi-IN"
         )
-
-        print("You:", text)
 
         return text.lower()
 

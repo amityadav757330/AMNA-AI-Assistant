@@ -1,177 +1,186 @@
-<p align="center">
-  <img src="images/banner.png" alt="AMNA Banner" width="100%">
-</p>
+# 🤖 AMNA AI Assistant
 
-<p align="center">
-  <img src="images/logo.png" alt="AMNA Logo" width="300">
-</p>
+AMNA is a modular AI Voice Assistant built in Python. It combines voice recognition, conversational AI, long-term memory, internet search, desktop automation, and a clean software architecture.
 
-<h1 align="center">🤖 AMNA AI Assistant</h1>
-
-<p align="center">
-<b>Your Personal AI Voice Assistant</b>
-</p>
-
-<p align="center">
-Built with ❤️ using Python • Ollama • Edge TTS • Speech Recognition
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.12-blue?logo=python">
-  <img src="https://img.shields.io/badge/Ollama-Local%20LLM-green">
-  <img src="https://img.shields.io/badge/Edge%20TTS-Natural%20Voice-orange">
-  <img src="https://img.shields.io/badge/Platform-Windows-blueviolet">
-  <img src="https://img.shields.io/badge/License-MIT-red">
-</p>
+AMNA is designed as a personal AI assistant similar to Jarvis, with a focus on scalability, maintainability, and future AI capabilities.
 
 ---
 
-# 🚀 About AMNA
+# 🚀 Features
 
-AMNA is an AI-powered personal voice assistant developed by **Amit Yadav**.
+## 🎙 Voice Assistant
 
-It understands voice commands, responds naturally, remembers conversations, searches the web, automates desktop tasks, and runs locally using Ollama.
-
-The vision of AMNA is to become a fully featured desktop AI assistant similar to Jarvis, ChatGPT Voice, Google Assistant, and Alexa while keeping user data private.
-
----
-
-# ✨ Features
-
-- 🎤 Voice Recognition
-- 🗣️ Natural AI Voice (Edge TTS)
-- 🤖 Local AI Chat (Ollama)
-- 🌐 Internet Search
-- 📚 Wikipedia Search
-- ☁️ Weather Information
-- 🧠 Long-Term Memory
-- 💻 Desktop Automation
-- 📂 Open Applications
-- 🌍 Open Websites
-- 🇮🇳 English + Hindi + Hinglish Support
-- ⏹️ Stop Speaking Anytime
-- ⚡ Fast Speech Response
+- Continuous conversation
+- Speech Recognition
+- Edge TTS Voice
+- Stop Speaking Feature
+- Voice-based interaction
 
 ---
 
-# 🛠️ Tech Stack
+## 🧠 AI
+
+- Ollama Integration
+- LLM Chat
+- Intelligent Fallback Responses
+- Natural Conversations
+
+---
+
+## 💾 Memory
+
+- Remember personal information
+- Recall stored information
+- Forget information
+- Persistent memory storage
+
+Examples:
+
+Remember my name is Amit
+
+What is my name?
+
+Forget my name
+
+---
+
+## 🌐 Internet
+
+- Google Search
+- YouTube Search
+- Weather
+- News
+- Wikipedia Search
+- Website Opening
+
+---
+
+## 💻 Desktop Automation
+
+- Open Chrome
+- Open VS Code
+- Open PyCharm
+- Open Calculator
+- Open Notepad
+- Open Downloads
+- Open Documents
+- Open Desktop
+
+---
+
+## ⚙ System Controls
+
+- Shutdown PC
+- Restart PC
+- Cancel Shutdown
+- Lock PC
+
+---
+
+# 🏗 Architecture
+
+AMNA follows a modular architecture.
+
+```
+Voice Mode
+     │
+Conversation
+     │
+AI Service
+     │
+Brain
+     │
+Router
+     │
+ ├── Memory Intent
+ ├── System Intent
+ ├── Search Intent
+ ├── Info Intent
+ └── AI Intent
+```
+
+---
+
+# 📁 Project Structure
+
+```
+AMNA/
+│
+├── assistant/
+│   ├── brain.py
+│   ├── router.py
+│   │
+│   ├── intents/
+│   │   ├── memory_intents.py
+│   │   ├── system_intents.py
+│   │   ├── search_intents.py
+│   │   ├── info_intents.py
+│   │   └── ai_intents.py
+│   │
+│   ├── services/
+│   │   ├── ai_service.py
+│   │   ├── memory_service.py
+│   │   ├── speech_service.py
+│   │   └── ...
+│   │
+│   ├── llm.py
+│   ├── speak.py
+│   ├── speech.py
+│   ├── conversation.py
+│   └── engine.py
+│
+├── data/
+├── docs/
+├── logs/
+├── tests/
+│
+├── voice_mode.py
+├── requirements.txt
+└── README.md
+```
+
+---
+
+# 🛠 Technologies
 
 - Python 3.12
 - Ollama
 - Edge TTS
 - SpeechRecognition
-- Keyboard
-- Pygame
+- pygame
 - Requests
-- BeautifulSoup4
+- DuckDuckGo Search
 - Wikipedia API
 
 ---
 
-# 📂 Project Structure
+# ▶ Installation
 
-```text
-AMNA/
-│
-├── assistant/
-│   ├── apps.py
-│   ├── brain.py
-│   ├── internet.py
-│   ├── llm.py
-│   ├── memory.py
-│   ├── speak.py
-│   ├── speech.py
-│   ├── tools.py
-│   └── weather.py
-│
-├── data/
-│   └── memory.json
-│
-├── images/
-│   ├── banner.png
-│   ├── logo.png
-│   ├── demo1.png
-│   └── demo2.png
-│
-├── voice_mode.py
-├── main.py
-├── requirements.txt
-├── LICENSE
-├── README.md
-└── .gitignore
-```
-
----
-
-# 🎙️ Example Commands
-
-```text
-Hello AMNA
-
-Who created you?
-
-Open Chrome
-
-Open YouTube
-
-Search Python tutorials
-
-Remember my name
-
-What's today's weather?
-
-Who is Elon Musk?
-
-Stop speaking
-```
-
----
-
-# 🚀 Installation
-
-## Clone Repository
+Clone the repository
 
 ```bash
-git clone https://github.com/amityadav757330/AMNA-AI-Assistant.git
+git clone https://github.com/YOUR_USERNAME/AMNA.git
 ```
 
-## Open Project
+Go to project
 
 ```bash
-cd AMNA-AI-Assistant
+cd AMNA
 ```
 
-## Install Requirements
+Install requirements
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Install Ollama
-
-Download:
-
-https://ollama.com/download
-
-Pull a model
-
-```bash
-ollama pull qwen2.5:1.5b
-```
-
-or
-
-```bash
-ollama pull llama3.2
-```
-
-Start Ollama
+Run Ollama
 
 ```bash
 ollama serve
 ```
 
-Run AMNA
+Start AMNA
 
 ```bash
 python voice_mode.py
@@ -179,139 +188,63 @@ python voice_mode.py
 
 ---
 
-# 📸 Screenshots
+# ⌨ Hotkeys
 
-## Logo
-
-<p align="center">
-<img src="images/logo.png" width="260">
-</p>
-
-## Voice Assistant
-
-Coming Soon...
+| Key | Action |
+|------|--------|
+| F9 | Start Conversation |
+| F10 | Stop Speaking |
+| ESC | Exit AMNA |
 
 ---
 
-# 🎥 Demo
+# 📈 Current Version
 
-Coming Soon...
+## v0.5.0
 
-A full demonstration GIF will be added after the Continuous Conversation feature is completed.
+✔ Modular Architecture
+
+✔ Intent Routing
+
+✔ Service Layer
+
+✔ Continuous Conversation
+
+✔ Internet Search
+
+✔ Memory System
+
+✔ Desktop Automation
+
+✔ Voice Assistant
 
 ---
 
-# 🗺️ Roadmap
+# 🚀 Upcoming Features
 
-## ✅ Completed
-
-- Voice Recognition
-- AI Chat
-- Local LLM
-- Memory
-- Desktop Automation
-- Internet Search
-- Wikipedia
-- Weather
-- Natural Voice
-
-## 🚧 In Progress
-
-- Continuous Conversation
-- Wake Word ("Hey AMNA")
-- Better Memory
-- Faster Responses
-
-## 🔮 Planned
-
-- Camera Vision
-- Face Recognition
-- Object Detection
+- Smart Memory
+- Wake Word
+- Vision
 - OCR
-- PDF Reader
+- Face Recognition
+- GUI
+- Email Assistant
 - WhatsApp Automation
-- Email Automation
 - Calendar
-- Reminders
-- AI Image Generation
-- Desktop GUI
-- Mobile Companion App
-
----
-
-# 💻 System Requirements
-
-- Windows 10 / 11
-- Python 3.12+
-- Ollama
-- Microphone
-- Speaker
-- Internet Connection (for online features)
-
----
-
-# 🤝 Contributing
-
-Contributions are welcome.
-
-1. Fork this repository
-
-2. Create a feature branch
-
-```bash
-git checkout -b feature-name
-```
-
-3. Commit your changes
-
-```bash
-git commit -m "Added new feature"
-```
-
-4. Push
-
-```bash
-git push origin feature-name
-```
-
-5. Create a Pull Request
+- Plugin System
 
 ---
 
 # 👨‍💻 Developer
 
-## Amit Yadav
+**Amit Yadav**
 
-B.Tech Computer Science Engineering
+Computer Science Engineering Student
 
-GL Bajaj Institute of Technology & Management
-
-### Interests
-
-- Artificial Intelligence
-- Python Development
-- Automation
-- Machine Learning
-- Software Engineering
-
-GitHub
-
-https://github.com/amityadav757330
+GL Bajaj Institute of Technology and Management
 
 ---
 
-# 📄 License
+# 📜 License
 
-This project is licensed under the MIT License.
-
-See the LICENSE file for details.
-
----
-
-<p align="center">
-
-⭐ If you like this project, don't forget to Star the repository.
-
-Made with ❤️ by Amit Yadav
-
-</p>
+This project is developed for educational and portfolio purposes.

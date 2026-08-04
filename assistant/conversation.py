@@ -1,6 +1,5 @@
-from assistant.speech import listen
-from assistant.brain import reply
-from assistant.speak import speak, speaking
+from assistant.services.speech_service import SpeechService
+from assistant.services.ai_service import AIService
 
 import time
 
@@ -18,10 +17,16 @@ EXIT_WORDS = {
 class Conversation:
 
     def __init__(self):
+
         self.active = False
 
+        self.speech = SpeechService()
+
+        self.ai = AIService()
+
     def wait_until_done_speaking(self):
-        while speaking():
+
+        while self.speech.speaking():
             time.sleep(0.05)
 
     def start(self):
@@ -31,17 +36,20 @@ class Conversation:
 
         self.active = True
 
-        speak("Hello Amit. I'm listening.")
+        self.speech.speak("Hello Amit. I'm listening.")
+
         self.wait_until_done_speaking()
 
         while self.active:
 
             print("\n🎤 Listening...")
 
-            text = listen()
+            text = self.speech.listen()
 
             if not text:
                 continue
+
+            print(f"You: {text}")
 
             user = text.lower().strip()
 
@@ -49,18 +57,18 @@ class Conversation:
 
                 self.active = False
 
-                speak("Goodbye Amit.")
+                self.speech.speak("Goodbye Amit.")
+
                 self.wait_until_done_speaking()
 
                 print("\nConversation Ended.")
 
                 return
 
-            print(f"You: {text}")
-
-            response = reply(text)
+            response = self.ai.ask(text)
 
             print(f"AMNA: {response}")
 
-            speak(response)
+            self.speech.speak(response)
+
             self.wait_until_done_speaking()

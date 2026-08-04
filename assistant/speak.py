@@ -29,18 +29,18 @@ def _play(text):
     fd, filename = tempfile.mkstemp(suffix=".mp3")
     os.close(fd)
 
-    # ============================
-    # TTS Generation Time
-    # ============================
+    # ----------------------------
+    # Generate TTS
+    # ----------------------------
     start = time.time()
 
     asyncio.run(generate_speech(text, filename))
 
     print(f"🔊 TTS Generation : {time.time() - start:.2f} sec")
 
-    # ============================
-    # Audio Loading Time
-    # ============================
+    # ----------------------------
+    # Start Audio
+    # ----------------------------
     start = time.time()
 
     pygame.mixer.music.load(filename)
@@ -48,9 +48,9 @@ def _play(text):
 
     print(f"▶ Audio Start     : {time.time() - start:.2f} sec")
 
-    # ============================
+    # ----------------------------
     # Wait until speech finishes
-    # ============================
+    # ----------------------------
     while pygame.mixer.music.get_busy():
 
         if stop_flag:
@@ -59,6 +59,9 @@ def _play(text):
 
         time.sleep(0.05)
 
+    # ----------------------------
+    # Cleanup
+    # ----------------------------
     try:
         pygame.mixer.music.unload()
     except:
@@ -77,8 +80,7 @@ def speak(text):
     if not text:
         return
 
-    print("AMNA:", text)
-
+    # Stop previous speech if any
     stop()
 
     speech_thread = threading.Thread(
