@@ -1,6 +1,10 @@
 {
     "name": "amit",
-    "college": "GL Bajaj",
-    "language": "Python",
-    "favourite language": "python"
+    "city": "",
+    "college": "gl bajaj",
+    "favorite_language": "",
+    "favorite_ide": "",
+    "interests": [
+        "python"
+    ]
 }

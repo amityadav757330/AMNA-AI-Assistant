@@ -1,4 +1,7 @@
 from ollama import chat
+from assistant.ai.prompt_builder import PromptBuilder
+
+builder = PromptBuilder()
 
 messages = [
     {
@@ -33,18 +36,21 @@ Rules:
    "I was created and developed by Amit Yadav."
 7. If asked "Who is your owner?", reply:
    "My owner is Amit Yadav."
-8. If asked "What is my name?", reply:
-   "Your name is Amit Yadav."
-9. Never use Markdown.
-10. Never use headings (#, ##, ###), bullet points, tables, bold (**), italics (*), or code blocks unless the user explicitly asks.
-11. Reply in plain text only.
-12. Speak like a friendly human assistant.
+8. Never use Markdown.
+9. Reply in plain text only.
+10. Speak like a friendly human assistant.
 """
     }
 ]
 
 
-def ask_llm(prompt):
+def ask_llm(user_message, context=None):
+
+    prompt = builder.build(
+        user_message=user_message,
+        context=context
+    )
+
     messages.append(
         {
             "role": "user",
@@ -63,7 +69,6 @@ def ask_llm(prompt):
 
     reply = response["message"]["content"].strip()
 
-    # Keep replies short unless user explicitly asks for detail
     detailed_words = [
         "detail",
         "explain",
@@ -73,8 +78,10 @@ def ask_llm(prompt):
         "in detail"
     ]
 
-    if not any(word in prompt.lower() for word in detailed_words):
+    if not any(word in user_message.lower() for word in detailed_words):
+
         sentences = reply.split(".")
+
         if len(sentences) > 2:
             reply = ".".join(sentences[:2]).strip() + "."
 

@@ -9,15 +9,17 @@ class MemoryIntent:
 
         command = command.lower().strip()
 
-        # -------------------------
-        # Smart Memory
-        # -------------------------
+        # ==========================================
+        # MANUAL PROFILE UPDATE
+        # ==========================================
 
         if command.startswith("my name is "):
 
             name = user[11:].strip()
 
-            memory.remember("name", name)
+            memory.update_profile({
+                "name": name
+            })
 
             return f"Nice to meet you, {name}. I'll remember your name."
 
@@ -25,7 +27,9 @@ class MemoryIntent:
 
             college = user[11:].strip()
 
-            memory.remember("college", college)
+            memory.update_profile({
+                "college": college
+            })
 
             return f"I'll remember that you study at {college}."
 
@@ -33,15 +37,29 @@ class MemoryIntent:
 
             city = user[10:].strip()
 
-            memory.remember("city", city)
+            memory.update_profile({
+                "city": city
+            })
 
             return f"I'll remember that you live in {city}."
+
+        if command.startswith("i'm from "):
+
+            city = user[9:].strip()
+
+            memory.update_profile({
+                "city": city
+            })
+
+            return f"I'll remember that you are from {city}."
 
         if command.startswith("my favourite language is "):
 
             language = user[25:].strip()
 
-            memory.remember("favourite language", language)
+            memory.update_profile({
+                "favorite_language": language
+            })
 
             return f"I'll remember your favourite language is {language}."
 
@@ -49,15 +67,19 @@ class MemoryIntent:
 
             language = user[24:].strip()
 
-            memory.remember("favourite language", language)
+            memory.update_profile({
+                "favorite_language": language
+            })
 
-            return f"I'll remember your favourite language is {language}."
+            return f"I'll remember your favorite language is {language}."
 
         if command.startswith("my favourite ide is "):
 
             ide = user[20:].strip()
 
-            memory.remember("favourite ide", ide)
+            memory.update_profile({
+                "favorite_ide": ide
+            })
 
             return f"I'll remember your favourite IDE is {ide}."
 
@@ -65,64 +87,75 @@ class MemoryIntent:
 
             ide = user[19:].strip()
 
-            memory.remember("favourite ide", ide)
+            memory.update_profile({
+                "favorite_ide": ide
+            })
 
-            return f"I'll remember your favourite IDE is {ide}."
+            return f"I'll remember your favorite IDE is {ide}."
 
-        # -------------------------
-        # Manual Memory
-        # -------------------------
+        if command.startswith("i love "):
 
-        if command.startswith("remember"):
+            interest = user[7:].strip()
 
-            text = command.replace("remember", "", 1).strip()
+            memory.update_profile({
+                "interest": interest
+            })
 
-            if " is " in text:
+            return f"I'll remember that you like {interest}."
 
-                key, value = text.split(" is ", 1)
+        # ==========================================
+        # PROFILE LOOKUP
+        # ==========================================
 
-                key = key.replace("my", "").strip()
+        if command == "what is my name":
 
-                return memory.remember(key, value)
+            profile = memory.get_profile()
 
-            return "Please say something like Remember my name is Amit."
+            if profile.name:
+                return f"Your name is {profile.name}."
 
-        # -------------------------
-        # Recall
-        # -------------------------
+            return "I don't know your name yet."
 
-        if command.startswith("what is my "):
+        if command == "where do i live":
 
-            key = command.replace("what is my", "").replace("?", "").strip()
+            profile = memory.get_profile()
 
-            value = memory.recall(key)
+            if profile.city:
+                return f"You live in {profile.city}."
 
-            if value:
+            return "I don't know where you live."
 
-                return f"Your {key} is {value}."
+        if command == "where do i study":
 
-            return f"I don't remember your {key}."
+            profile = memory.get_profile()
 
-        # -------------------------
-        # Forget
-        # -------------------------
+            if profile.college:
+                return f"You study at {profile.college}."
 
-        if command.startswith("forget my "):
+            return "I don't know where you study."
 
-            key = command.replace("forget my", "").strip()
+        if command == "what is my favourite language" or command == "what is my favorite language":
 
-            return memory.forget(key)
+            profile = memory.get_profile()
 
-        # -------------------------
-        # Show Memory
-        # -------------------------
+            if profile.favorite_language:
+                return f"Your favorite language is {profile.favorite_language}."
 
-        if command == "show my memory":
+            return "I don't know your favorite language."
 
-            return memory.show_all_memory()
+        if command == "what is my favourite ide" or command == "what is my favorite ide":
 
-        if command == "clear memory":
+            profile = memory.get_profile()
 
-            return memory.clear_all_memory()
+            if profile.favorite_ide:
+                return f"Your favorite IDE is {profile.favorite_ide}."
+
+            return "I don't know your favorite IDE."
+
+        if command == "show my profile":
+
+            profile = memory.get_profile()
+
+            return str(profile.to_dict())
 
         return None

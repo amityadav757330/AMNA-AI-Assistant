@@ -1,98 +1,80 @@
+"""
+=========================================
+AMNA AI Assistant
+Memory Service
+=========================================
+"""
+
 from assistant import memory
+from assistant.models.user_profile import UserProfile
 
 
 class MemoryService:
 
-    # =========================
-    # Profile
-    # =========================
+    # =========================================
+    # PROFILE
+    # =========================================
 
     def get_profile(self):
-        return memory.get_profile()
+
+        data = memory.get_profile()
+
+        return UserProfile.from_dict(data)
 
     def save_profile(self, profile):
-        memory.save_profile(profile)
 
-    # =========================
-    # Preferences
-    # =========================
+        if isinstance(profile, UserProfile):
+            memory.save_profile(profile.to_dict())
+        else:
+            memory.save_profile(profile)
 
-    def get_preferences(self):
-        return memory.get_preferences()
+    def update_profile(self, data):
 
-    def save_preferences(self, pref):
-        memory.save_preferences(pref)
-
-    # =========================
-    # Context
-    # =========================
-
-    def get_context(self):
-        return memory.get_context()
-
-    def save_context(self, context):
-        memory.save_context(context)
-
-    def clear_context(self):
-        memory.clear_context()
-
-    # =========================
-    # Conversation
-    # =========================
-
-    def get_conversation(self):
-        return memory.get_conversation()
-
-    def save_conversation(self, conversation):
-        memory.save_conversation(conversation)
-
-    # =========================
-    # Compatibility Methods
-    # =========================
-
-    def remember(self, key, value):
+        if not data:
+            return
 
         profile = self.get_profile()
 
-        profile[key] = value
+        profile.update(data)
 
         self.save_profile(profile)
 
-        return f"I'll remember your {key} is {value}."
+    # =========================================
+    # PREFERENCES
+    # =========================================
 
-    def recall(self, key):
+    def get_preferences(self):
 
-        profile = self.get_profile()
+        return memory.get_preferences()
 
-        return profile.get(key)
+    def save_preferences(self, preferences):
 
-    def forget(self, key):
+        memory.save_preferences(preferences)
 
-        profile = self.get_profile()
+    # =========================================
+    # CONTEXT
+    # =========================================
 
-        if key in profile:
-            del profile[key]
-            self.save_profile(profile)
-            return f"I forgot your {key}."
+    def get_context(self):
 
-        return f"I don't remember your {key}."
+        return memory.get_context()
 
-    def show_all_memory(self):
+    def save_context(self, context):
 
-        profile = self.get_profile()
+        memory.save_context(context)
 
-        if not profile:
-            return "Your memory is empty."
+    def clear_context(self):
 
-        result = []
+        memory.clear_context()
 
-        for k, v in profile.items():
-            result.append(f"{k}: {v}")
+    # =========================================
+    # CONVERSATION
+    # =========================================
 
-        return "\n".join(result)
+    def get_conversation(self):
 
-    def clear_all_memory(self):
+        return memory.get_conversation()
 
-        self.save_profile({})
+    def save_conversation(self, conversation):
 
-        return "Memory cleared."
+        memory.save_conversation(conversation)

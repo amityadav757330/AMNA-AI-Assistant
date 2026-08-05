@@ -1,3 +1,10 @@
+"""
+=========================================
+AMNA AI Assistant
+Router
+=========================================
+"""
+
 from assistant.intents.memory_intents import MemoryIntent
 from assistant.intents.system_intents import SystemIntent
 from assistant.intents.search_intents import SearchIntent
@@ -12,29 +19,61 @@ info_intent = InfoIntent()
 ai_intent = AIIntent()
 
 
-def route(user):
+def route(user, context=None):
+    """
+    Routes the user request to the appropriate intent.
+
+    Parameters:
+        user (str): User message
+        context (dict): Conversation context
+
+    Returns:
+        str: Assistant response
+    """
 
     command = user.lower().strip()
 
-    # Memory
+    # ==========================================
+    # Memory Intent
+    # ==========================================
+
     response = memory_intent.handle(command, user)
+
     if response is not None:
         return response
 
-    # System
+    # ==========================================
+    # System Intent
+    # ==========================================
+
     response = system_intent.handle(command)
+
     if response is not None:
         return response
 
-    # Search
+    # ==========================================
+    # Search Intent
+    # ==========================================
+
     response = search_intent.handle(command, user)
+
     if response is not None:
         return response
 
-    # Info
+    # ==========================================
+    # Information Intent
+    # ==========================================
+
     response = info_intent.handle(command)
+
     if response is not None:
         return response
 
-    # AI Fallback
-    return ai_intent.handle(user)
+    # ==========================================
+    # AI Intent (Fallback)
+    # ==========================================
+
+    return ai_intent.handle(
+        user=user,
+        context=context
+    )

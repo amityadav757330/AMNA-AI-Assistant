@@ -1,8 +1,28 @@
+"""
+=========================================
+AMNA AI Assistant
+AI Intent
+=========================================
+"""
+
 from assistant.llm import ask_llm
 
 
 class AIIntent:
 
-    def handle(self, user):
+    def handle(self, user, context=None):
+        """
+        Handles AI fallback requests.
 
-        return ask_llm(user)
+        Parameters:
+            user (str): User message
+            context (dict): Conversation context
+
+        Returns:
+            str: AI response
+        """
+
+        return ask_llm(
+            user_message=user,
+            context=context
+        )
