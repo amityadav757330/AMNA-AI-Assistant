@@ -5,7 +5,7 @@ AI Intent
 =========================================
 """
 
-from assistant.llm import ask_llm
+from assistant.ai.llm import ask_llm
 
 
 class AIIntent:

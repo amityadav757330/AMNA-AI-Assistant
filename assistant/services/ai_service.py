@@ -5,24 +5,18 @@ AI Service
 =========================================
 """
 
-from assistant.brain import reply
+from assistant.planner.pipeline import PlanningPipeline
 
 
 class AIService:
 
-    def ask(self, user_message, context=None):
-        """
-        Generate a response from AMNA.
+    def __init__(self):
 
-        Parameters:
-            user_message (str): Current user input.
-            context (dict): Conversation context (optional).
+        self.pipeline = PlanningPipeline()
 
-        Returns:
-            str: AI response.
-        """
+    def ask(self, text, context=None):
 
-        return reply(
-            user=user_message,
+        return self.pipeline.run(
+            user_message=text,
             context=context
         )

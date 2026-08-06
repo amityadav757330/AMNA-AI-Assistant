@@ -5,12 +5,16 @@ Router
 =========================================
 """
 
+from assistant.planner.query_planner import QueryPlanner
+
 from assistant.intents.memory_intents import MemoryIntent
 from assistant.intents.system_intents import SystemIntent
 from assistant.intents.search_intents import SearchIntent
 from assistant.intents.info_intents import InfoIntent
 from assistant.intents.ai_intents import AIIntent
 
+
+planner = QueryPlanner()
 
 memory_intent = MemoryIntent()
 system_intent = SystemIntent()
@@ -20,57 +24,53 @@ ai_intent = AIIntent()
 
 
 def route(user, context=None):
-    """
-    Routes the user request to the appropriate intent.
 
-    Parameters:
-        user (str): User message
-        context (dict): Conversation context
-
-    Returns:
-        str: Assistant response
-    """
-
-    command = user.lower().strip()
+    route_type = planner.classify(user)
 
     # ==========================================
-    # Memory Intent
+    # Memory
     # ==========================================
 
-    response = memory_intent.handle(command, user)
+    if route_type == "memory":
 
-    if response is not None:
-        return response
-
-    # ==========================================
-    # System Intent
-    # ==========================================
-
-    response = system_intent.handle(command)
-
-    if response is not None:
-        return response
+        return memory_intent.handle(
+            command=user.lower().strip(),
+            user=user
+        )
 
     # ==========================================
-    # Search Intent
+    # System
     # ==========================================
 
-    response = search_intent.handle(command, user)
+    elif route_type == "system":
 
-    if response is not None:
-        return response
-
-    # ==========================================
-    # Information Intent
-    # ==========================================
-
-    response = info_intent.handle(command)
-
-    if response is not None:
-        return response
+        return system_intent.handle(
+            command=user.lower().strip()
+        )
 
     # ==========================================
-    # AI Intent (Fallback)
+    # Search
+    # ==========================================
+
+    elif route_type == "search":
+
+        return search_intent.handle(
+            command=user.lower().strip(),
+            user=user
+        )
+
+    # ==========================================
+    # Info
+    # ==========================================
+
+    elif route_type == "info":
+
+        return info_intent.handle(
+            command=user.lower().strip()
+        )
+
+    # ==========================================
+    # AI
     # ==========================================
 
     return ai_intent.handle(

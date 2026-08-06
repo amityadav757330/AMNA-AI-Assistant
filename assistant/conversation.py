@@ -3,6 +3,7 @@ from assistant.services.ai_service import AIService
 from assistant.services.memory_service import MemoryService
 from assistant.extractor import Extractor
 from assistant.context import ContextManager
+from assistant.ai.topic_extractor import TopicExtractor
 
 import time
 
@@ -32,6 +33,8 @@ class Conversation:
         self.extractor = Extractor()
 
         self.context = ContextManager()
+
+        self.topic_extractor = TopicExtractor()
 
     def wait_until_done_speaking(self):
 
@@ -69,6 +72,18 @@ class Conversation:
             if facts:
                 self.memory.update_profile(facts)
 
+            # ==========================================
+            # Topic Extraction
+            # ==========================================
+
+            topic = self.topic_extractor.extract(text)
+
+            if topic:
+
+                self.context.set_topic(topic)
+
+                print(f"[Context] Current Topic -> {topic}")
+
             user = text.lower().strip()
 
             # ==========================================
@@ -90,7 +105,7 @@ class Conversation:
                 return
 
             # ==========================================
-            # Build Conversation Context
+            # Build Context
             # ==========================================
 
             context = {
@@ -104,12 +119,12 @@ class Conversation:
             # ==========================================
 
             response = self.ai.ask(
-                user_message=text,
+                text=text,
                 context=context
             )
 
             # ==========================================
-            # Update Context
+            # Update Conversation Context
             # ==========================================
 
             self.context.update(

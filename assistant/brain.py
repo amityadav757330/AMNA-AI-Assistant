@@ -3,22 +3,20 @@
 AMNA AI Assistant
 Brain
 =========================================
+
+Compatibility layer.
+
+The brain simply forwards the request to
+the router.
+
+The Planning Pipeline is now responsible
+for deciding how the request is executed.
 """
 
 from assistant.router import route
 
 
 def reply(user, context=None):
-    """
-    Main entry point for AMNA.
-
-    Parameters:
-        user (str): User message
-        context (dict): Conversation context
-
-    Returns:
-        str: Assistant response
-    """
 
     return route(
         user=user,
