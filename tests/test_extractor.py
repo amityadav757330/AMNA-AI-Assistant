@@ -1,4 +1,4 @@
-from assistant.extractor import Extractor
+from assistant.core.extractor import Extractor
 
 extractor = Extractor()
 

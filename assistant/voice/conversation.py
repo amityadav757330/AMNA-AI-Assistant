@@ -1,7 +1,7 @@
 from assistant.services.speech_service import SpeechService
 from assistant.services.ai_service import AIService
 from assistant.services.memory_service import MemoryService
-from assistant.extractor import Extractor
+from assistant.core.extractor import Extractor
 from assistant.core.context import ContextManager
 from assistant.ai.topic_extractor import TopicExtractor
 
