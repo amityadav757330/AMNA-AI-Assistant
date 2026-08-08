@@ -2,8 +2,8 @@ import keyboard
 import threading
 import time
 
-from assistant.engine import AssistantEngine
-from assistant.speak import stop
+from assistant.core.engine import AssistantEngine
+from assistant.voice.speak import stop
 
 
 running = True
@@ -12,7 +12,6 @@ engine = AssistantEngine()
 
 
 def start():
-
     engine.start_conversation()
 
 
@@ -29,7 +28,6 @@ def conversation_thread():
 
 
 def stop_speaking():
-
     stop()
 
 
@@ -52,9 +50,11 @@ print("F10 -> Stop Speaking")
 print("ESC -> Exit")
 print("=" * 45)
 
+
 keyboard.add_hotkey("f9", conversation_thread)
 keyboard.add_hotkey("f10", stop_speaking)
 keyboard.add_hotkey("esc", exit_program)
+
 
 while running:
     time.sleep(0.1)

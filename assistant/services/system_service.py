@@ -1,3 +1,10 @@
+"""
+=========================================
+AMNA AI Assistant
+System Service
+=========================================
+"""
+
 import webbrowser
 
 from assistant.automation import (
@@ -6,6 +13,9 @@ from assistant.automation import (
     open_chrome,
     open_vscode,
     open_pycharm,
+    open_cmd,
+    open_powershell,
+    open_file_explorer,
     open_downloads,
     open_documents,
     open_desktop,
@@ -18,66 +28,79 @@ from assistant.automation import (
 
 class SystemService:
 
-    # -------------------------
+    # ==========================================
     # Applications
-    # -------------------------
+    # ==========================================
 
     def open_notepad(self):
-        open_notepad()
+        return open_notepad()
 
     def open_calculator(self):
-        open_calculator()
+        return open_calculator()
 
     def open_chrome(self):
-        open_chrome()
+        return open_chrome()
 
     def open_vscode(self):
-        open_vscode()
+        return open_vscode()
 
     def open_pycharm(self):
-        open_pycharm()
+        return open_pycharm()
 
-    # -------------------------
+    def open_cmd(self):
+        return open_cmd()
+
+    def open_powershell(self):
+        return open_powershell()
+
+    def open_file_explorer(self):
+        return open_file_explorer()
+
+    # ==========================================
     # Folders
-    # -------------------------
+    # ==========================================
 
     def open_downloads(self):
-        open_downloads()
+        return open_downloads()
 
     def open_documents(self):
-        open_documents()
+        return open_documents()
 
     def open_desktop(self):
-        open_desktop()
+        return open_desktop()
 
-    # -------------------------
+    # ==========================================
     # Websites
-    # -------------------------
+    # ==========================================
 
     def open_google(self):
         webbrowser.open("https://www.google.com")
+        return "Opening Google."
 
     def open_youtube(self):
         webbrowser.open("https://www.youtube.com")
+        return "Opening YouTube."
 
     def open_github(self):
         webbrowser.open("https://github.com")
+        return "Opening GitHub."
 
     def open_chatgpt(self):
         webbrowser.open("https://chat.openai.com")
+        return "Opening ChatGPT."
 
-    # -------------------------
+    # ==========================================
     # System
-    # -------------------------
+    # ==========================================
 
     def shutdown(self):
-        shutdown_pc()
+        return shutdown_pc()
 
     def restart(self):
-        restart_pc()
+        return restart_pc()
 
     def cancel_shutdown(self):
-        cancel_shutdown()
+        return cancel_shutdown()
 
     def lock(self):
-        lock_pc()
+        return lock_pc()

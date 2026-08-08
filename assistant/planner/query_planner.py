@@ -12,7 +12,10 @@ class QueryPlanner:
 
         command = user_message.lower().strip()
 
+        # ==========================================
         # Memory
+        # ==========================================
+
         if (
             command.startswith("remember")
             or command.startswith("forget")
@@ -23,10 +26,12 @@ class QueryPlanner:
         ):
             return "memory"
 
+        # ==========================================
         # System
+        # ==========================================
 
         if (
-            "open " in command
+            command.startswith("open ")
             or "shutdown" in command
             or "restart" in command
             or "lock pc" in command
@@ -34,7 +39,31 @@ class QueryPlanner:
         ):
             return "system"
 
+        # ==========================================
+        # Information
+        # IMPORTANT: Must come BEFORE Search
+        # ==========================================
+
+        if (
+            command in ["time", "date"]
+            or "what is the time" in command
+            or "what time is it" in command
+            or "current time" in command
+            or "what is the date" in command
+            or "today's date" in command
+            or "todays date" in command
+            or "current date" in command
+            or "ip address" in command
+            or "who created you" in command
+            or "who are you" in command
+            or "who is your owner" in command
+            or "tell me about yourself" in command
+        ):
+            return "info"
+
+        # ==========================================
         # Search
+        # ==========================================
 
         if (
             command.startswith("weather")
@@ -47,17 +76,8 @@ class QueryPlanner:
         ):
             return "search"
 
-        # Information
-
-        if (
-            command == "time"
-            or command == "date"
-            or "ip address" in command
-            or "who created you" in command
-            or "who are you" in command
-        ):
-            return "info"
-
+        # ==========================================
         # Default
+        # ==========================================
 
         return "ai"

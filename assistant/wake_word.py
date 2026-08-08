@@ -1,27 +1,60 @@
+import time
+
 from assistant.speech import listen
 from assistant.brain import reply
 from assistant.speak import speak
 
-WAKE_WORDS = ["hey amna", "amna"]
+
+WAKE_WORDS = [
+    "amna",
+    "hey amna",
+    "hello amna",
+    "ok amna",
+    "okay amna"
+]
 
 SLEEP_WORDS = [
     "go to sleep",
     "sleep",
     "stop listening",
-    "goodbye",
-    "bye amna"
+    "bye",
+    "bye amna",
+    "goodbye"
 ]
+
+AUTO_SLEEP_TIME = 60  # seconds
+
+
+def remove_wake_word(text):
+    """
+    Remove wake word from beginning of sentence.
+    """
+
+    for wake in WAKE_WORDS:
+
+        if text.startswith(wake):
+
+            return text[len(wake):].strip(" ,")
+
+    return text
 
 
 def start():
+
     awake = False
+
+    last_activity = time.time()
 
     speak("AMNA is ready.")
 
     while True:
 
-        # Sleep Mode
+        # ==========================================
+        # Sleeping
+        # ==========================================
+
         if not awake:
+
             print("😴 Waiting for wake word...")
 
             text = listen()
@@ -29,23 +62,68 @@ def start():
             if not text:
                 continue
 
-            if any(word in text for word in WAKE_WORDS):
-                awake = True
-                speak("Yes Amit, how can I help you?")
+            text = text.lower().strip()
 
-        # Active Mode
-        else:
-            print("🎤 Listening for command...")
+            matched = False
 
-            command = listen()
+            for wake in WAKE_WORDS:
 
-            if not command:
+                if text.startswith(wake):
+
+                    matched = True
+                    awake = True
+                    last_activity = time.time()
+
+                    command = remove_wake_word(text)
+
+                    # User only said "Amna"
+                    if command == "":
+                        speak("Yes Amit.")
+                        break
+
+                    # Execute immediately
+                    response = reply(command)
+                    print(f"AMNA: {response}")
+                    speak(response)
+
+                    break
+
+            if matched:
                 continue
 
-            if any(word in command for word in SLEEP_WORDS):
-                speak("Going to sleep.")
-                awake = False
-                continue
+        # ==========================================
+        # Active Conversation
+        # ==========================================
 
-            response = reply(command)
-            speak(response)
+        if time.time() - last_activity > AUTO_SLEEP_TIME:
+
+            speak("Going to sleep.")
+
+            awake = False
+
+            continue
+
+        print("🎤 Listening...")
+
+        command = listen()
+
+        if not command:
+            continue
+
+        last_activity = time.time()
+
+        command = command.lower().strip()
+
+        if any(word in command for word in SLEEP_WORDS):
+
+            speak("Going to sleep.")
+
+            awake = False
+
+            continue
+
+        response = reply(command)
+
+        print(f"AMNA: {response}")
+
+        speak(response)
