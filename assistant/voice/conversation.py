@@ -18,22 +18,68 @@ EXIT_WORDS = {
 }
 
 
+WAKE_WORDS = [
+    "hey amna",
+    "amna"
+]
+
+
+SLEEP_WORDS = [
+    "go to sleep",
+    "sleep",
+    "stop listening",
+    "goodbye",
+    "bye amna"
+]
+
+
+def contains_wake_word(text):
+    if not text:
+        return False
+
+    text = text.lower().strip()
+
+    return any(
+        text.startswith(word)
+        for word in WAKE_WORDS
+    )
+
+
+def remove_wake_word(text):
+    text = text.lower().strip()
+
+    for word in WAKE_WORDS:
+
+        if text.startswith(word):
+            return text[len(word):].strip()
+
+    return text
+
+
+def contains_sleep_word(text):
+    if not text:
+        return False
+
+    text = text.lower().strip()
+
+    return any(
+        word in text
+        for word in SLEEP_WORDS
+    )
+
+
 class Conversation:
 
     def __init__(self):
 
         self.active = False
+        self.awake = False
 
         self.speech = SpeechService()
-
         self.ai = AIService()
-
         self.memory = MemoryService()
-
         self.extractor = Extractor()
-
         self.context = ContextManager()
-
         self.topic_extractor = TopicExtractor()
 
     def wait_until_done_speaking(self):
@@ -47,52 +93,102 @@ class Conversation:
             return
 
         self.active = True
+        self.awake = False
 
-        self.speech.speak("Hello Amit. I'm listening.")
+        self.speech.speak("AMNA is ready.")
 
         self.wait_until_done_speaking()
 
         while self.active:
 
-            print("\n🎤 Listening...")
+            # ==========================================
+            # WAIT FOR WAKE WORD
+            # ==========================================
 
-            text = self.speech.listen()
+            if not self.awake:
+
+                print("\n😴 Waiting for wake word...")
+
+                text = self.speech.listen()
+
+                if not text:
+                    continue
+
+                print(f"You: {text}")
+
+                if not contains_wake_word(text):
+                    continue
+
+                command = remove_wake_word(text)
+
+                self.awake = True
+
+                # --------------------------------------
+                # "Amna" only
+                # --------------------------------------
+
+                if not command:
+
+                    self.speech.speak(
+                        "Yes Amit, how can I help you?"
+                    )
+
+                    self.wait_until_done_speaking()
+
+                    continue
+
+                # --------------------------------------
+                # "Amna open google"
+                # --------------------------------------
+
+                text = command
+
+            # ==========================================
+            # ACTIVE MODE
+            # ==========================================
+
+            else:
+
+                print("\n🎤 Listening...")
+
+                text = self.speech.listen()
+
+                if not text:
+                    continue
+
+                print(f"You: {text}")
+
+                # Sleep command
+
+                if contains_sleep_word(text):
+
+                    self.speech.speak("Going to sleep.")
+
+                    self.wait_until_done_speaking()
+
+                    self.awake = False
+
+                    continue
+
+            # ==========================================
+            # NORMALIZE COMMAND
+            # ==========================================
+
+            text = text.lower().strip()
 
             if not text:
                 continue
 
-            print(f"You: {text}")
+            print(f"[Command] {text}")
 
             # ==========================================
-            # Automatic Memory Learning
+            # EXIT
             # ==========================================
 
-            facts = self.extractor.extract(text)
-
-            if facts:
-                self.memory.update_profile(facts)
-
-            # ==========================================
-            # Topic Extraction
-            # ==========================================
-
-            topic = self.topic_extractor.extract(text)
-
-            if topic:
-
-                self.context.set_topic(topic)
-
-                print(f"[Context] Current Topic -> {topic}")
-
-            user = text.lower().strip()
-
-            # ==========================================
-            # Exit
-            # ==========================================
-
-            if user in EXIT_WORDS:
+            if text in EXIT_WORDS:
 
                 self.active = False
+                self.awake = False
 
                 self.context.clear()
 
@@ -105,7 +201,30 @@ class Conversation:
                 return
 
             # ==========================================
-            # Build Context
+            # AUTOMATIC MEMORY LEARNING
+            # ==========================================
+
+            facts = self.extractor.extract(text)
+
+            if facts:
+                self.memory.update_profile(facts)
+
+            # ==========================================
+            # TOPIC EXTRACTION
+            # ==========================================
+
+            topic = self.topic_extractor.extract(text)
+
+            if topic:
+
+                self.context.set_topic(topic)
+
+                print(
+                    f"[Context] Current Topic -> {topic}"
+                )
+
+            # ==========================================
+            # BUILD CONTEXT
             # ==========================================
 
             context = {
@@ -115,22 +234,38 @@ class Conversation:
             }
 
             # ==========================================
-            # AI Response
+            # AI / PLANNER
             # ==========================================
 
-            response = self.ai.ask(
-                text=text,
-                context=context
-            )
+            try:
+
+                response = self.ai.ask(
+                    text=text,
+                    context=context
+                )
+
+            except Exception as e:
+
+                print(
+                    f"[Conversation Error] {e}"
+                )
+
+                response = (
+                    "Sorry Amit, something went wrong."
+                )
 
             # ==========================================
-            # Update Conversation Context
+            # UPDATE CONTEXT
             # ==========================================
 
             self.context.update(
                 user_message=text,
                 ai_response=response
             )
+
+            # ==========================================
+            # RESPONSE
+            # ==========================================
 
             print(f"AMNA: {response}")
 
