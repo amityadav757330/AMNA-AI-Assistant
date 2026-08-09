@@ -1,5 +1,13 @@
-from assistant.internet import *
-from assistant.search import web_search
+from assistant.services.internet_service import (
+    google_search,
+    youtube_search,
+    open_website,
+    wiki_search,
+    get_weather,
+    latest_news,
+)
+
+from assistant.services.search_service import web_search
 
 
 class SearchIntent:
